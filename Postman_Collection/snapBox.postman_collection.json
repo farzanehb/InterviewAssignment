@@ -1,0 +1,515 @@
+{
+	"info": {
+		"_postman_id": "511b05e1-fa8b-43c5-93be-d8069d979751",
+		"name": "snapBox",
+		"description": "HAR To Postman Generated Collection",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "8478867"
+	},
+	"item": [
+		{
+			"name": "order",
+			"item": [
+				{
+					"name": "send_otp",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"phoneNumber\":\"{{userCellNum}}\"}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL1}}/api/v2/auth/otp/send",
+							"host": [
+								"{{baseURL1}}"
+							],
+							"path": [
+								"api",
+								"v2",
+								"auth",
+								"otp",
+								"send"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "check_otp",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = pm.response.json()\r",
+									"pm.collectionVariables.set('token',jsonData.token)\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"phoneNumber\":\"{{userCellNum}}\",\"otp\":\"{{otpValue}}\",\"name\":null}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL1}}/api/v2/auth/otp",
+							"host": [
+								"{{baseURL1}}"
+							],
+							"path": [
+								"api",
+								"v2",
+								"auth",
+								"otp"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "pricing",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonReq = JSON.parse(request.data)\r",
+									"pm.collectionVariables.set('isReturn',jsonReq.isReturn)\r",
+									"pm.collectionVariables.set('pickUpPlate',jsonReq.terminals[0].plate)\r",
+									"pm.collectionVariables.set('pickUpUnit',jsonReq.terminals[0].unit)\r",
+									"pm.collectionVariables.set('dropPlate',jsonReq.terminals[1].plate)\r",
+									"pm.collectionVariables.set('dropUnit',jsonReq.terminals[1].unit)"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "sec-ch-ua",
+								"value": "\"Google Chrome\";v=\"107\", \"Chromium\";v=\"107\", \"Not=A?Brand\";v=\"24\""
+							},
+							{
+								"key": "appVersion",
+								"value": "3.9.2"
+							},
+							{
+								"key": "Accept-Language",
+								"value": "fa"
+							},
+							{
+								"key": "sec-ch-ua-mobile",
+								"value": "?0"
+							},
+							{
+								"key": "Authorization",
+								"value": "{{token}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json, text/plain, */*"
+							},
+							{
+								"key": "Referer",
+								"value": "https://app.snpb.ir/orders/new"
+							},
+							{
+								"key": "platform",
+								"value": "web"
+							},
+							{
+								"key": "clientType",
+								"value": "pwa"
+							},
+							{
+								"key": "sec-ch-ua-platform",
+								"value": "\"Windows\""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n \"city\": \"{{city}}\",\n \"deliveryCategory\": \"{{category}}\",\n \"deliveryFarePaymentType\": null,\n \"isReturn\": {{$randomBoolean}},\n \"pricingId\": null,\n \"sequenceNumberDeliveryCollection\": 2,\n \"totalFare\": null,\n \"voucherCode\": null,\n \"waitingTime\": {{waitingTime}},\n \"customerWalletType\": null,\n \"loadAssistance\": false,\n \"terminals\": [\n  {\n   \"id\": null,\n   \"contactName\": \"{{pickUpContactName}}\",\n   \"address\": \"\",\n   \"contactPhoneNumber\": \"{{pickUpCellNum}}\",\n   \"plate\": \"{{$randomInt}}\",\n   \"sequenceNumber\": 1,\n   \"unit\": \"{{$randomInt}}\",\n   \"comment\": \"{{comment}}\",\n   \"latitude\": {{pickUpLat}},\n   \"longitude\": {{pickupLongt}},\n   \"type\": \"pickup\",\n   \"collectCash\": \"no\",\n   \"paymentType\": \"{{paymentType}}\",\n   \"cashOnPickup\": 0,\n   \"cashOnDelivery\": 0,\n   \"isHub\": null,\n   \"vendorId\": null,\n   \"services\": [],\n   \"merchandiseInvoiceId\": null,\n   \"customerRefId\": null,\n   \"editMerchandiseInfo\": null\n  },\n  {\n   \"id\": null,\n   \"contactName\": \"{{dropContactName}}\",\n   \"address\": \"\",\n   \"contactPhoneNumber\": \"{{dropCellNum}}\",\n   \"plate\": \"{{$randomInt}}\",\n   \"sequenceNumber\": 2,\n   \"unit\": \"{{$randomInt}}\",\n   \"comment\": \"{{comment}}\",\n   \"latitude\": {{dropLat}},\n   \"longitude\": {{dropLongt}},\n   \"type\": \"drop\",\n   \"collectCash\": \"no\",\n   \"paymentType\": \"{{paymentType}}\",\n   \"cashOnPickup\": 0,\n   \"cashOnDelivery\": 0,\n   \"isHub\": null,\n   \"vendorId\": null,\n   \"services\": [],\n   \"merchandiseInvoiceId\": null,\n   \"customerRefId\": null,\n   \"editMerchandiseInfo\": null\n  }\n ],\n \"items\": [\n  {\n   \"name\": \"لوازم برقی\",\n   \"externalRefId\": {{itemRefId}},\n   \"externalRefType\": \"INSURANCE\",\n   \"packageValue\": {{pkgValue}},\n   \"pickedUpSequenceNumber\": 1,\n   \"dropOffSequenceNumber\": 2\n  }\n ],\n \"id\": null,\n \"timeSlot\": {\n  \"startTimeSlot\": null\n },\n \"timeSlotId\": null\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL1}}/api/v1/customer/order/pricing",
+							"host": [
+								"{{baseURL1}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"customer",
+								"order",
+								"pricing"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "create_order",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonReq = JSON.parse(request.data)\r",
+									"pm.collectionVariables.set('orderId',jsonReq.orderId)\r",
+									"pm.test(\"Status code is 201\", function () {\r",
+									"    pm.response.to.have.status(201);\r",
+									"});\r",
+									"pm.test(\"Check key\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.key).to.eql(\"ORDER_CREATED\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "sec-ch-ua",
+								"value": "\"Google Chrome\";v=\"107\", \"Chromium\";v=\"107\", \"Not=A?Brand\";v=\"24\""
+							},
+							{
+								"key": "appVersion",
+								"value": "3.9.2"
+							},
+							{
+								"key": "Accept-Language",
+								"value": "fa"
+							},
+							{
+								"key": "sec-ch-ua-mobile",
+								"value": "?0"
+							},
+							{
+								"key": "Authorization",
+								"value": "{{token}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json, text/plain, */*"
+							},
+							{
+								"key": "Referer",
+								"value": "https://app.snpb.ir/orders/new"
+							},
+							{
+								"key": "platform",
+								"value": "web"
+							},
+							{
+								"key": "clientType",
+								"value": "pwa"
+							},
+							{
+								"key": "sec-ch-ua-platform",
+								"value": "\"Windows\""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n \"data\": {\n  \"orderDetails\": {\n   \"city\": \"{{city}}\",\n   \"deliveryCategory\": \"{{category}}\",\n   \"deliveryFarePaymentType\": null,\n   \"isReturn\": {{isReturn}},\n   \"pricingId\": \"\",\n   \"sequenceNumberDeliveryCollection\": 2,\n   \"totalFare\": {{price}},\n   \"voucherCode\": null,\n   \"waitingTime\": {{waitingTime}},\n   \"customerWalletType\": null,\n   \"loadAssistance\": false\n  },\n  \"pickUpDetails\": [\n   {\n    \"id\": null,\n    \"contactName\": \"{{pickUpContactName}}\",\n    \"address\": \"\",\n    \"contactPhoneNumber\": \"{{pickUpCellNum}}\",\n    \"plate\": \"{{pickUpPlate}}\",\n    \"sequenceNumber\": 1,\n    \"unit\": \"{{pickUpUnit}}\",\n    \"comment\": \"{{comment}}\",\n    \"latitude\": {{pickUpLat}},\n    \"longitude\": {{pickupLongt}},\n    \"type\": \"pickup\",\n    \"collectCash\": \"no\",\n    \"paymentType\": \"{{paymentType}}\",\n    \"cashOnPickup\": 0,\n    \"cashOnDelivery\": 0,\n    \"isHub\": null,\n    \"vendorId\": null,\n    \"services\": [],\n    \"merchandiseInvoiceId\": null,\n    \"customerRefId\": null,\n    \"editMerchandiseInfo\": null\n   }\n  ],\n  \"dropOffDetails\": [\n   {\n    \"id\": null,\n    \"contactName\": \"{{dropContactName}}\",\n    \"address\": \"\",\n    \"contactPhoneNumber\": \"{{dropCellNum}}\",\n    \"plate\": \"{{dropPlate}}\",\n    \"sequenceNumber\": 2,\n    \"unit\": \"{{dropUnit}}\",\n    \"comment\": \"{{comment}}\",\n    \"latitude\": {{dropLat}},\n    \"longitude\": {{dropLongt}},\n    \"type\": \"drop\",\n    \"collectCash\": \"no\",\n    \"paymentType\": \"{{paymentType}}\",\n    \"cashOnPickup\": 0,\n    \"cashOnDelivery\": 0,\n    \"isHub\": null,\n    \"vendorId\": null,\n    \"services\": [],\n    \"merchandiseInvoiceId\": null,\n    \"customerRefId\": null,\n    \"editMerchandiseInfo\": null\n   }\n  ],\n  \"itemDetails\": [\n   {\n    \"name\": \"\",\n    \"externalRefId\": {{itemRefId}},\n    \"externalRefType\": \"INSURANCE\",\n    \"packageValue\": {{pkgValue}},\n    \"pickedUpSequenceNumber\": 1,\n    \"dropOffSequenceNumber\": 2\n   }\n  ],\n  \"timeSlotDTO\": {\n   \"startTimeSlot\": null\n  },\n  \"timeSlotId\": null\n }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL1}}/api/v1/customer/create_order",
+							"host": [
+								"{{baseURL1}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"customer",
+								"create_order"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "cancel_order",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "sec-ch-ua",
+								"value": "\"Google Chrome\";v=\"107\", \"Chromium\";v=\"107\", \"Not=A?Brand\";v=\"24\""
+							},
+							{
+								"key": "appVersion",
+								"value": "3.9.2"
+							},
+							{
+								"key": "Accept-Language",
+								"value": "fa"
+							},
+							{
+								"key": "sec-ch-ua-mobile",
+								"value": "?0"
+							},
+							{
+								"key": "Authorization",
+								"value": "{{token}}"
+							},
+							{
+								"key": "User-Agent",
+								"value": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/107.0.0.0 Safari/537.36"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json, text/plain, */*"
+							},
+							{
+								"key": "Referer",
+								"value": "https://app.snpb.ir/orders/ongoing"
+							},
+							{
+								"key": "platform",
+								"value": "web"
+							},
+							{
+								"key": "clientType",
+								"value": "pwa"
+							},
+							{
+								"key": "sec-ch-ua-platform",
+								"value": "\"Windows\""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n \"orderId\": \"{{orderId}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL1}}/api/v1/customer/cancel_order",
+							"host": [
+								"{{baseURL1}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"customer",
+								"cancel_order"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "app.snpb.ir/orders/ongoing"
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "baseURL1",
+			"value": "https://app.snpb.ir",
+			"type": "any"
+		},
+		{
+			"key": "city",
+			"value": "tehran",
+			"type": "string"
+		},
+		{
+			"key": "waitingTime",
+			"value": "10",
+			"type": "string"
+		},
+		{
+			"key": "pickUpContactName",
+			"value": "تست تست",
+			"type": "string"
+		},
+		{
+			"key": "pickUpCellNum",
+			"value": "09889988998",
+			"type": "string"
+		},
+		{
+			"key": "comment",
+			"value": "تست ",
+			"type": "string"
+		},
+		{
+			"key": "pickUpLat",
+			"value": "35.69800036721254",
+			"type": "string"
+		},
+		{
+			"key": "pickupLongt",
+			"value": "51.41150146722794",
+			"type": "string"
+		},
+		{
+			"key": "paymentType",
+			"value": "prepaid",
+			"type": "string"
+		},
+		{
+			"key": "dropContactName",
+			"value": "تست تست",
+			"type": "string"
+		},
+		{
+			"key": "dropCellNum",
+			"value": "09909090990",
+			"type": "string"
+		},
+		{
+			"key": "dropLat",
+			"value": "35.698013436605756",
+			"type": "string"
+		},
+		{
+			"key": "dropLongt",
+			"value": "51.41249388456345",
+			"type": "string"
+		},
+		{
+			"key": "itemRefId",
+			"value": "4",
+			"type": "string"
+		},
+		{
+			"key": "pkgValue",
+			"value": "50000000",
+			"type": "string"
+		},
+		{
+			"key": "price",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "isReturn",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "pickUpPlate",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "pickUpUnit",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "dropPlate",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "dropUnit",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "orderId",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "userCellNum",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "otpValue",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "token",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "category",
+			"value": "",
+			"type": "string"
+		}
+	]
+}

@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generator="Robot 5.0.1 (Python 3.10.5 on win32)" generated="20221124 13:03:39.046" rpa="false" schemaversion="3">
+<suite id="s1" name="sampleTestCases" source="C:\Users\f.bahramnejad\Desktop\SnappBox\TestCases\sampleTestCases.robot">
+<kw name="Open Android Test App" library="testBase" type="SETUP">
+<kw name="Open Application" library="AppiumLibrary">
+<arg>http://127.0.0.1:4723/wd/hub</arg>
+<arg>platformName=${ANDROID_PLATFORM_NAME}</arg>
+<arg>platformVersion=${ANDROID_PLATFORM_VERSION}</arg>
+<arg>appPackage=${ANDROID_APP_PACKAGE}</arg>
+<arg>appActivity=${ANDROID_APP_Activity}</arg>
+<arg>noReset=true</arg>
+<doc>Opens a new application to given Appium server.
+Capabilities of appium server, Android and iOS,
+Please check https://github.com/appium/appium/blob/master/docs/en/writing-running-appium/server-args.md
+| *Option*            | *Man.* | *Description*     |
+| remote_url          | Yes    | Appium server url |
+| alias               | no     | alias             |</doc>
+<status status="PASS" starttime="20221124 13:03:39.263" endtime="20221124 13:03:50.240"/>
+</kw>
+<status status="PASS" starttime="20221124 13:03:39.263" endtime="20221124 13:03:50.240"/>
+</kw>
+<test id="s1-t1" name="Check &quot;Current&quot; tab" line="18">
+<kw name="Given User has selected the first city in the list" library="homePage">
+<kw name="Wait Until Page Contains Element" library="AppiumLibrary">
+<arg>${city_dropDown}</arg>
+<doc>Waits until element specified with `locator` appears on current page.</doc>
+<status status="PASS" starttime="20221124 13:03:50.241" endtime="20221124 13:03:52.255"/>
+</kw>
+<kw name="Click Element" library="AppiumLibrary">
+<arg>${city_dropDown}</arg>
+<doc>Click element identified by `locator`.</doc>
+<msg timestamp="20221124 13:03:52.257" level="INFO">Clicking element '//*[@resource-id='com.gau.go.launcherex.gowidget.weatherwidget:id/img_arrow']'.</msg>
+<status status="PASS" starttime="20221124 13:03:52.255" endtime="20221124 13:03:52.520"/>
+</kw>
+<kw name="Click Element" library="AppiumLibrary">
+<arg>${first_city}</arg>
+<doc>Click element identified by `locator`.</doc>
+<msg timestamp="20221124 13:03:52.522" level="INFO">Clicking element '//*[@resource-id='com.gau.go.launcherex.gowidget.weatherwidget:id/txt_city_name']'.</msg>
+<status status="PASS" starttime="20221124 13:03:52.520" endtime="20221124 13:04:23.774"/>
+</kw>
+<status status="PASS" starttime="20221124 13:03:50.241" endtime="20221124 13:04:23.775"/>
+</kw>
+<kw name="When User selects a tab" library="homePage">
+<arg>${current_tab}</arg>
+<kw name="Click Element" library="AppiumLibrary">
+<arg>//android.widget.TextView[@text='${tab}']</arg>
+<doc>Click element identified by `locator`.</doc>
+<msg timestamp="20221124 13:04:23.777" level="INFO">Clicking element '//android.widget.TextView[@text='Current']'.</msg>
+<status status="PASS" starttime="20221124 13:04:23.775" endtime="20221124 13:04:24.010"/>
+</kw>
+<status status="PASS" starttime="20221124 13:04:23.775" endtime="20221124 13:04:24.011"/>
+</kw>
+<kw name="Then Current tempreture should not equal to" library="homePage">
+<arg>${test_temp}</arg>
+<kw name="Get Text" library="AppiumLibrary">
+<var>${text}</var>
+<arg>${temp_elem}</arg>
+<doc>Get element text (for hybrid and mobile browser use `xpath` locator, others might cause problem)</doc>
+<msg timestamp="20221124 13:04:24.764" level="INFO">Element '//*[@resource-id='com.gau.go.launcherex.gowidget.weatherwidget:id/weather_current_tempc']' text is '45°' </msg>
+<msg timestamp="20221124 13:04:24.764" level="INFO">${text} = 45°</msg>
+<status status="PASS" starttime="20221124 13:04:24.011" endtime="20221124 13:04:24.764"/>
+</kw>
+<kw name="Remove String" library="String">
+<var>${current_temp}</var>
+<arg>${text}</arg>
+<arg>°</arg>
+<doc>Removes all ``removables`` from the given ``string``.</doc>
+<msg timestamp="20221124 13:04:24.765" level="INFO">${current_temp} = 45</msg>
+<status status="PASS" starttime="20221124 13:04:24.764" endtime="20221124 13:04:24.765"/>
+</kw>
+<kw name="Should Not Be Equal" library="BuiltIn">
+<arg>${current_temp}</arg>
+<arg>${test_temp}</arg>
+<doc>Fails if the given objects are equal.</doc>
+<status status="PASS" starttime="20221124 13:04:24.765" endtime="20221124 13:04:24.765"/>
+</kw>
+<status status="PASS" starttime="20221124 13:04:24.011" endtime="20221124 13:04:24.765"/>
+</kw>
+<status status="PASS" starttime="20221124 13:03:50.240" endtime="20221124 13:04:24.765"/>
+</test>
+<test id="s1-t2" name="Check &quot;Forcast&quot; tab" line="23">
+<kw name="Given User has selected the first city in the list" library="homePage">
+<kw name="Wait Until Page Contains Element" library="AppiumLibrary">
+<arg>${city_dropDown}</arg>
+<doc>Waits until element specified with `locator` appears on current page.</doc>
+<status status="PASS" starttime="20221124 13:04:24.768" endtime="20221124 13:04:24.938"/>
+</kw>
+<kw name="Click Element" library="AppiumLibrary">
+<arg>${city_dropDown}</arg>
+<doc>Click element identified by `locator`.</doc>
+<msg timestamp="20221124 13:04:24.939" level="INFO">Clicking element '//*[@resource-id='com.gau.go.launcherex.gowidget.weatherwidget:id/img_arrow']'.</msg>
+<status status="PASS" starttime="20221124 13:04:24.938" endtime="20221124 13:04:25.157"/>
+</kw>
+<kw name="Click Element" library="AppiumLibrary">
+<arg>${first_city}</arg>
+<doc>Click element identified by `locator`.</doc>
+<msg timestamp="20221124 13:04:25.158" level="INFO">Clicking element '//*[@resource-id='com.gau.go.launcherex.gowidget.weatherwidget:id/txt_city_name']'.</msg>
+<status status="PASS" starttime="20221124 13:04:25.157" endtime="20221124 13:04:56.388"/>
+</kw>
+<status status="PASS" starttime="20221124 13:04:24.767" endtime="20221124 13:04:56.388"/>
+</kw>
+<kw name="When User selects a tab" library="homePage">
+<arg>${forcast_tab}</arg>
+<kw name="Click Element" library="AppiumLibrary">
+<arg>//android.widget.TextView[@text='${tab}']</arg>
+<doc>Click element identified by `locator`.</doc>
+<msg timestamp="20221124 13:04:56.392" level="INFO">Clicking element '//android.widget.TextView[@text='Forecast']'.</msg>
+<status status="PASS" starttime="20221124 13:04:56.389" endtime="20221124 13:04:56.618"/>
+</kw>
+<status status="PASS" starttime="20221124 13:04:56.389" endtime="20221124 13:04:56.618"/>
+</kw>
+<kw name="And User scrolls down to take screenshot" library="homePage">
+<kw name="Custom Swipe" library="homePage">
+<arg>${scroll_start}</arg>
+<arg>${scroll_end}</arg>
+<kw name="Get Element Size" library="AppiumLibrary">
+<var>${element1_size}</var>
+<arg>${elem1}</arg>
+<doc>Get element size</doc>
+<msg timestamp="20221124 13:05:00.677" level="INFO">Element '//*[@resource-id='com.gau.go.launcherex.gowidget.weatherwidget:id/weather_forecast_linechart']' size: {'height': 453, 'width': 1008} </msg>
+<msg timestamp="20221124 13:05:00.677" level="INFO">${element1_size} = {'height': 453, 'width': 1008}</msg>
+<status status="PASS" starttime="20221124 13:04:56.619" endtime="20221124 13:05:00.677"/>
+</kw>
+<kw name="Get Element Location" library="AppiumLibrary">
+<var>${element1_location}</var>
+<arg>${elem1}</arg>
+<doc>Get element location</doc>
+<msg timestamp="20221124 13:05:08.111" level="INFO">Element '//*[@resource-id='com.gau.go.launcherex.gowidget.weatherwidget:id/weather_forecast_linechart']' location: {'x': 36, 'y': 567} </msg>
+<msg timestamp="20221124 13:05:08.111" level="INFO">${element1_location} = {'x': 36, 'y': 567}</msg>
+<status status="PASS" starttime="20221124 13:05:00.678" endtime="20221124 13:05:08.111"/>
+</kw>
+<kw name="Get Element Size" library="AppiumLibrary">
+<var>${element2_size}</var>
+<arg>${elem2}</arg>
+<doc>Get element size</doc>
+<msg timestamp="20221124 13:05:10.081" level="INFO">Element '//*[@resource-id='com.gau.go.launcherex.gowidget.weatherwidget:id/weather_forecast_pay_function']' size: {'height': 99, 'width': 1008} </msg>
+<msg timestamp="20221124 13:05:10.081" level="INFO">${element2_size} = {'height': 99, 'width': 1008}</msg>
+<status status="PASS" starttime="20221124 13:05:08.111" endtime="20221124 13:05:10.081"/>
+</kw>
+<kw name="Get Element Location" library="AppiumLibrary">
+<var>${element2_location}</var>
+<arg>${elem2}</arg>
+<doc>Get element location</doc>
+<msg timestamp="20221124 13:05:10.715" level="INFO">Element '//*[@resource-id='com.gau.go.launcherex.gowidget.weatherwidget:id/weather_forecast_pay_function']' location: {'x': 36, 'y': 2008} </msg>
+<msg timestamp="20221124 13:05:10.716" level="INFO">${element2_location} = {'x': 36, 'y': 2008}</msg>
+<status status="PASS" starttime="20221124 13:05:10.081" endtime="20221124 13:05:10.716"/>
+</kw>
+<kw name="Evaluate" library="BuiltIn">
+<var>${start_x}</var>
+<arg>${element2_location['x']} + (${element2_size['width']} * 0.5)</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<msg timestamp="20221124 13:05:10.717" level="INFO">${start_x} = 540.0</msg>
+<status status="PASS" starttime="20221124 13:05:10.716" endtime="20221124 13:05:10.717"/>
+</kw>
+<kw name="Evaluate" library="BuiltIn">
+<var>${start_y}</var>
+<arg>${element2_location['y']} + (${element2_size['height']} * 0.5)</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<msg timestamp="20221124 13:05:10.718" level="INFO">${start_y} = 2057.5</msg>
+<status status="PASS" starttime="20221124 13:05:10.717" endtime="20221124 13:05:10.718"/>
+</kw>
+<kw name="Evaluate" library="BuiltIn">
+<var>${end_x}</var>
+<arg>${element1_location['x']} + (${element1_size['width']} * 0.5)</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<msg timestamp="20221124 13:05:10.719" level="INFO">${end_x} = 540.0</msg>
+<status status="PASS" starttime="20221124 13:05:10.718" endtime="20221124 13:05:10.719"/>
+</kw>
+<kw name="Evaluate" library="BuiltIn">
+<var>${end_y}</var>
+<arg>${element1_location['y']} + (${element1_size['height']})</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<msg timestamp="20221124 13:05:10.720" level="INFO">${end_y} = 1020</msg>
+<status status="PASS" starttime="20221124 13:05:10.719" endtime="20221124 13:05:10.720"/>
+</kw>
+<kw name="Swipe" library="AppiumLibrary">
+<arg>${start_x}</arg>
+<arg>${start_y}</arg>
+<arg>${end_x}</arg>
+<arg>${end_y}</arg>
+<arg>500</arg>
+<doc>Swipe from one point to another point, for an optional duration.</doc>
+<status status="PASS" starttime="20221124 13:05:10.720" endtime="20221124 13:05:11.816"/>
+</kw>
+<status status="PASS" starttime="20221124 13:04:56.619" endtime="20221124 13:05:11.816"/>
+</kw>
+<kw name="Capture Page Screenshot" library="AppiumLibrary">
+<doc>Takes a screenshot of the current page and embeds it into the log.</doc>
+<msg timestamp="20221124 13:05:12.789" level="INFO" html="true">&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td colspan="3"&gt;&lt;a href="appium-screenshot-1.png"&gt;&lt;img src="appium-screenshot-1.png" width="800px"&gt;&lt;/a&gt;</msg>
+<status status="PASS" starttime="20221124 13:05:11.816" endtime="20221124 13:05:12.790"/>
+</kw>
+<status status="PASS" starttime="20221124 13:04:56.619" endtime="20221124 13:05:12.790"/>
+</kw>
+<kw name="Then Target section should exist" library="homePage">
+<arg>${target_section}</arg>
+<kw name="Wait Until Page Contains Element" library="AppiumLibrary">
+<arg>//*[@text='${target_section}']</arg>
+<doc>Waits until element specified with `locator` appears on current page.</doc>
+<status status="PASS" starttime="20221124 13:05:12.791" endtime="20221124 13:05:17.877"/>
+</kw>
+<status status="PASS" starttime="20221124 13:05:12.791" endtime="20221124 13:05:17.877"/>
+</kw>
+<status status="PASS" starttime="20221124 13:04:24.767" endtime="20221124 13:05:17.878"/>
+</test>
+<doc>This file includes test cases for snappBox interview process</doc>
+<status status="PASS" starttime="20221124 13:03:39.050" endtime="20221124 13:05:17.880"/>
+</suite>
+<statistics>
+<total>
+<stat pass="2" fail="0" skip="0">All Tests</stat>
+</total>
+<tag>
+</tag>
+<suite>
+<stat pass="2" fail="0" skip="0" id="s1" name="sampleTestCases">sampleTestCases</stat>
+</suite>
+</statistics>
+<errors>
+</errors>
+</robot>
